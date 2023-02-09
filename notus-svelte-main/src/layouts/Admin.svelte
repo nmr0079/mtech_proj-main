@@ -14,6 +14,7 @@
   import Maps from "views/admin/Maps.svelte";
   import Tokens from "views/admin/Token.svelte";
   import UploadSection from "views/admin/UploadSection.svelte";
+  import AdminNftCollect from "views/admin/AdminNFTCollect.svelte";
 
   export let location;
   export let admin = "";
@@ -29,6 +30,7 @@
         <Route path="dashboard" component="{Dashboard}" />
        <Route path="token" component="{Tokens}" />
        <Route path="uploaddocs" component="{UploadSection}" />
+       <Route path="nftcollect" component="{AdminNftCollect}" />
         <Route path="settings" component="{Settings}" />
         <Route path="tables" component="{Tables}" />
         <Route path="maps" component="{Maps}" />

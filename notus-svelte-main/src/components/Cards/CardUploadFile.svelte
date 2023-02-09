@@ -1,7 +1,6 @@
 <script>
         import { create } from 'ipfs-http-client';
         import { ethers } from 'ethers';
-        // import { Web3Storage, getFilesFromPath } from 'web3.storage'
         import SaiToken from "../../../../build/contracts/SaiCreditToken.json";
         import Student from "../../../../build/contracts/Student.json";
         import NFT from "../../../../build/contracts/NFT.json";
@@ -235,6 +234,23 @@ const team2 = "/assets/img/certificatenft.png";
                 />
               </div>
             </div>
+            <!--<div class="w-full lg:w-6/12 px-4">
+              <div class="relative w-full mb-3">
+                <label
+                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                  for="grid-first-name"
+                >
+                  Upload an image
+                </label>
+                <input
+                  id="grid-first-name"
+                  bind:value={nftprice}
+                  type=number 
+                  min=0 
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                />
+              </div>
+            </div>-->
           </form>
           <button
           class="bg-red-400 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"

@@ -4,6 +4,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import json from '@rollup/plugin-json';
+import css from "rollup-plugin-import-css";
 // library that helps you import in svelte with
 // absolute paths, instead of
 // import Component  from "../../../../components/Component.svelte";
@@ -164,6 +165,7 @@ export default {
       },
     }),
     json(),
+    css(),
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
