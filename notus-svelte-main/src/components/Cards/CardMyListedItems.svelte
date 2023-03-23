@@ -75,8 +75,9 @@
         let img2 = "../assets/img/Graph_algo.png";
         let img3 =  "../assets/img/mining_mass.png";
         let img4 =  "../assets/img/KMeans.png";
+        let team2 = "../assets/img/nft_img.jpeg";
         const signer = provider.getSigner();
-        let list_img = [img1,img2,img3,img4]
+        let list_img = [img1,img2,img3,img4, team2]
 
         const STUDENT_ADDRESS = StudentAddress.address;
         const StudentContract = new ethers.Contract(
@@ -143,6 +144,6 @@ const buyMarketItem = async (item) => {
     await (await MarketplaceContract.purchaseItem(item.itemId, { value: item.totalPrice })).wait()
     loadMarketplaceItems()
   }
-  const team2 = "../assets/img/nft_img.jpeg";
+  
 </script>
 

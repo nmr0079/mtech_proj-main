@@ -5,6 +5,7 @@
   "description": "Notus Svelte - A free Tailwind CSS and Svelte UI Kit and Admin by Creative Tim.",
   "repository": "https://github.com/creativetimofficial/notus-svelte",
   "license": "MIT",
+  "proxy": "http://localhost:5000/",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -14,10 +15,12 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && rm -rf public/build && npm install && npm run build:tailwind && npm run build:fontawesome && npm run dev"
   },
   "devDependencies": {
+    "@popperjs/core": "^2.11.6",
     "@rollup/plugin-commonjs": "17.1.0",
     "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "11.2.0",
     "autoprefixer": "10.2.5",
+    "classnames": "^2.3.2",
     "postcss": "8.2.8",
     "rollup": "2.41.5",
     "rollup-plugin-livereload": "2.0.0",
@@ -28,7 +31,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
     "@openzeppelin/contracts": "^4.8.1",
-    "@popperjs/core": "2.9.1",
     "@rollup/plugin-alias": "3.1.2",
     "@tailwindcss/forms": "0.2.1",
     "chart.js": "2.9.4",
@@ -37,10 +39,14 @@
     "ipfs-http-client": "^56.0.1",
     "rollup-plugin-import-css": "^3.1.0",
     "sirv-cli": "1.0.11",
+    "svelte-calculator": "^1.0.9",
     "svelte-materialify": "^0.3.11",
     "svelte-routing": "1.5.0",
     "tailwindcss": "2.0.4",
     "upload-csv-svelte": "^0.0.4",
     "web3.storage": "^4.4.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }

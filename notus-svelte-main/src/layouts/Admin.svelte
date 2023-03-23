@@ -15,6 +15,8 @@
   import Tokens from "views/admin/Token.svelte";
   import UploadSection from "views/admin/UploadSection.svelte";
   import AdminNftCollect from "views/admin/AdminNFTCollect.svelte";
+  import CourseRecommender from "views/admin/Recommender.svelte";
+  import Calculator from "views/admin/Calculator.svelte";
 
   export let location;
   export let admin = "";
@@ -31,6 +33,8 @@
        <Route path="token" component="{Tokens}" />
        <Route path="uploaddocs" component="{UploadSection}" />
        <Route path="nftcollect" component="{AdminNftCollect}" />
+       <Route path="courserec" component="{CourseRecommender}" />
+       <Route path="calculator" component="{Calculator}" />
         <Route path="settings" component="{Settings}" />
         <Route path="tables" component="{Tables}" />
         <Route path="maps" component="{Maps}" />

@@ -11,6 +11,8 @@ module.exports = {
       "./*.js",
       "./**/*.svelte",
       "./*.svelte",
+      "./src/**/*.{html,js,svelte,ts}",
+    "./node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}",
     ],
     options: {
       safelist: [],
@@ -95,6 +97,7 @@ module.exports = {
   ],
   plugins: [
     require("@tailwindcss/forms"),
+    require('flowbite/plugin'),
     plugin(function ({ addComponents, theme }) {
       const screens = theme("screens", {});
       addComponents([
