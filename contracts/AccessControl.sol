@@ -85,5 +85,12 @@ contract AccessControl {
         require(roles[INSTRUCTOR][msg.sender], "not an authorized instructor");
     }
 
+    function hasInstrRoleWADD(address _instradd) external view returns(bool) {
+        return roles[INSTRUCTOR][_instradd];
+    }
+
+    function hasStudRoleWADD(address _studaddr) external view returns(bool) {
+        return roles[STUDENT][_studaddr];
+    }
 
 }

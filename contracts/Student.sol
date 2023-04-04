@@ -11,12 +11,16 @@ contract Student{
 
     struct student {
         string name;
-        uint age;
         string city;
         string email;
         address[] teacherAccessList;
         address[] certAccessList;
         string record_hash;
+        string about_hash;
+        string prof_pic_hash;
+        int256[] courses_id;
+        int256[] courses_deadline;
+        int256[] marks;
         
     }
 
@@ -49,11 +53,10 @@ contract Student{
         //studentsCount = 0;
     }
     
-    function addDetails(string memory _name, uint _age, string memory _city) public returns (string memory)
+    function addDetails(string memory _name, string memory _city) public returns (string memory)
     {
         student memory p;
         p.name = _name;
-        p.age = _age;
         p.city = _city;
         studentInfo[msg.sender] = p;
         //p_List.push(msg.sender)-1;
@@ -65,8 +68,46 @@ contract Student{
         return "Student Registration complete";
     }
 
-    function getstudentDet(address paddr) view public returns (string memory, uint, string memory, string memory) {
-        return (studentInfo[paddr].name,studentInfo[paddr].age,studentInfo[paddr].city,studentInfo[paddr].record_hash);
+    function addCourseID(address s_id,int256 _c_id) public returns (string memory){
+        studentInfo[s_id].courses_id.push(_c_id);
+        return "Added course id";
+    }
+
+     function addDeadline(address s_id,int256 _deadline) public returns (string memory){
+        studentInfo[s_id].courses_deadline.push(_deadline);
+        return "Added deadline";
+    }
+
+    function addMarks(address s_id,int256 _marks) public returns (string memory){
+        studentInfo[s_id].marks.push(_marks);
+        return "Added deadline";
+    }
+
+    function addMarksWI(address s_id,int256 _marks, uint256 idx) public returns (string memory){
+        studentInfo[s_id].marks[idx] = _marks;
+        return "Added deadline";
+    }
+
+    function getTotalCourses(address s_id) public view returns(uint256) {
+        return studentInfo[s_id].courses_id.length;
+    }
+
+    function getCourseID(address s_id,uint256 _c_id) public view returns (int256){
+        return studentInfo[s_id].courses_id[_c_id];
+    }
+
+    function getDeadline(address s_id,uint256 _c_id) public view returns (int256){
+        return studentInfo[s_id].courses_deadline[_c_id];
+    }
+
+    function getMarks(address s_id,uint256 _c_id) public view returns (int256){
+        return studentInfo[s_id].marks[_c_id];
+    }
+
+
+
+    function getstudentDet(address paddr) view public returns (string memory, string memory, string memory) {
+        return (studentInfo[paddr].name,studentInfo[paddr].city,studentInfo[paddr].record_hash);
     }
     
     function giveAccess(address _teacher_address) public returns (string memory) {
@@ -106,6 +147,10 @@ contract Student{
         return studentInfo[paddr].record_hash;
     }
 
+     function getIPFSHash() public view returns (string memory) {
+        return studentInfo[msg.sender].record_hash;
+    }
+
    /* function addPrescriptions(address daddr, string memory disease_name, string memory medications) public returns(string memory){
         require(teachers[daddr] == true, "The teacher doesn't have the permission to give out prescriptions");
         prescriptions[daddr][disease_name] = medications;
@@ -143,7 +188,25 @@ contract Student{
 
     }
 
+    function setabouthash(string memory _hash)public returns(string memory){
+        studentInfo[msg.sender].about_hash = _hash;
+        return "IPFS hash added successfully";
 
+    }
+
+     function getaboutHash() public view returns (string memory) {
+        return studentInfo[msg.sender].about_hash;
+    }
+
+     function setprofpichash(string memory _hash)public returns(string memory){
+        studentInfo[msg.sender].prof_pic_hash = _hash;
+        return "IPFS hash added successfully";
+
+    }
+
+     function getprofpictHash() public view returns (string memory) {
+        return studentInfo[msg.sender].prof_pic_hash;
+    }
 
 
 }

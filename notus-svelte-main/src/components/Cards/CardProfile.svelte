@@ -1,5 +1,78 @@
 <script>
   // core components
+  import { ethers } from "../../../node_modules/ethers";
+  import SaiToken from "../../../../build/contracts/SaiCreditToken.json";
+  import Student from "../../../../build/contracts/Student.json";
+  import SaiCreditTokenAddress from "../../../contractsData/SaiCreditToken-address.json";
+  import StudentAddress from "../../../contractsData/Student-address.json";
+  let connectedAccount = "";
+  let balance = 0;
+  
+  let username = '';
+  let firstname = '';
+  let lastname = '';
+  let emailaddress = '';
+  let city = '';
+  let state = '';
+  let country = '';
+  let poscode;
+  let about = '';
+  let img_cid;
+  let img;
+  let course = '';
+  let subject = '';
+  let institution = '';
+  let studata;
+
+  let data_cid;
+
+  const SAICREDIT_ADDRESS = SaiCreditTokenAddress.address;
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+   
+
+    const STUDENT_ADDRESS = StudentAddress.address;
+     const StudentContract = new ethers.Contract(
+      STUDENT_ADDRESS,
+      Student.abi,
+      signer
+    );
+
+  async function connectWallet() {
+    	if (window.ethereum) {
+     	 await window.ethereum.request({ method: 'eth_requestAccounts' })
+     	 connectedAccount = await signer.getAddress();
+       balance = await SaiCreditContract.balanceOf(connectedAccount);
+  		} else {
+        alert('You need to install metamask');
+        }
+  }
+
+  async function getDetails(){
+    connectedAccount = await signer.getAddress();
+    data_cid = await StudentContract.getaboutHash({from: connectedAccount})
+    const uri = `https://${data_cid}.ipfs.w3s.link/`;
+            //console.log(uri)
+            // use uri to fetch the nft metadata stored on ipfs 
+    const response = await fetch(uri)
+    const metadata = await response.json()
+    username = metadata.username;
+    firstname = metadata.firstname;
+    lastname = metadata.lastname;
+    emailaddress = metadata.emailaddress;
+    city = metadata.city;
+    state = metadata.state;
+    country = metadata.country;
+    poscode = metadata.poscode;
+    about = metadata.about;
+    img = metadata.img;
+    course = metadata.course;
+    subject = metadata.subject;
+    institution = metadata.institution;
+
+  }
+
+  getDetails();
   const team2 = "../assets/img/student.jpg";
 </script>
 
@@ -12,7 +85,7 @@
         <div class="relative">
           <img
             alt="..."
-            src="{team2}"
+            src="{img}"
             class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
           />
         </div>
@@ -48,28 +121,28 @@
     </div>
     <div class="text-center mt-12">
       <h3 class="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-        Nithin
+        {firstname}
       </h3>
       <div
         class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase"
       >
         <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-        Thiruvananthapuram, Kerala
+        {city}, {state}, {country}
       </div>
       <div class="mb-2 text-blueGray-600 mt-10">
         <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-        II MTech-ComputerScience
+        {course}-{subject}
       </div>
       <div class="mb-2 text-blueGray-600">
         <i class="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-        Sri Sathya Sai Institute of Higher Learning
+        {institution}
       </div>
     </div>
     <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
       <div class="flex flex-wrap justify-center">
         <div class="w-full lg:w-9/12 px-4">
           <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-            A student of SSSIHL.
+            {about}
           </p>
           <a href="#pablo" on:click={(e) => e.preventDefault()} class="font-normal text-red-500">
             Show more

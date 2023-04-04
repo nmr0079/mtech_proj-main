@@ -4,7 +4,7 @@
 </script>
 
 <!-- Header -->
-<div class="relative bg-red-500 md:pt-32 pb-32 pt-12">
+<div class="relative bg-indigo-500 md:pt-32 pb-32 pt-12">
   <div class="px-4 md:px-10 mx-auto w-full">
     <div>
       <!-- Card stats -->
@@ -35,7 +35,7 @@
         </div>-->
         <div class="w-full lg:w-6/12 xl:w-3/12 px-4">
           <CardStats
-            statSubtitle="Cources Taken"
+            statSubtitle="Courses Taken"
             statTitle="4"
             statArrow="down"
             statPercent="1.10"

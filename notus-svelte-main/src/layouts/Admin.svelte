@@ -17,6 +17,10 @@
   import AdminNftCollect from "views/admin/AdminNFTCollect.svelte";
   import CourseRecommender from "views/admin/Recommender.svelte";
   import Calculator from "views/admin/Calculator.svelte";
+  import BookRecommender from "views/admin/Book_recommender.svelte";
+  import BookSearch from "views/admin/Book_search.svelte";
+  import CourseMarketplace from "views/admin/CourseMarketplace.svelte";
+  import MyCourses from "views/admin/MyCourses.svelte";
 
   export let location;
   export let admin = "";
@@ -34,8 +38,12 @@
        <Route path="uploaddocs" component="{UploadSection}" />
        <Route path="nftcollect" component="{AdminNftCollect}" />
        <Route path="courserec" component="{CourseRecommender}" />
+       <Route path="bookrec" component="{BookRecommender}" />
+       <Route path="colabbook" component="{BookSearch}" />
        <Route path="calculator" component="{Calculator}" />
         <Route path="settings" component="{Settings}" />
+        <Route path="coursemarket" component="{CourseMarketplace}" />
+        <Route path="mycourses" component="{MyCourses}" />
         <Route path="tables" component="{Tables}" />
         <Route path="maps" component="{Maps}" />
       </Router>

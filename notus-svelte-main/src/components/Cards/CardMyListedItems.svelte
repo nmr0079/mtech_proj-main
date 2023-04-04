@@ -16,7 +16,7 @@
 <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
   <br/>
   <br/>
-    <div class="d-flex justify-center mt-4 mb-4">
+   <div class="d-flex justify-center mt-4 mb-4">
         <!-- <ul>
             {#each items_list as item}                        
               <li>{item.name}</li>
@@ -24,7 +24,7 @@
               <li>No items</li>
             {/each}
             </ul> -->
-       {#each items_list as item, i}
+      <!-- {#each items_list as item, i}
             <Card style="max-width:350px;">
                 <Row>
                     <Col cols={8}>
@@ -40,7 +40,73 @@
                   </Row>
             </Card>
             <br />
+            {/each}-->
+            {#each items_list as item, i}
+            <!-- <div class="nft-display">
+            <NFTCard
+              name={item.name}
+              description={item.description}
+              imageUrl={item.image}
+            />
+            <button
+              class="bg-red-400 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              type="button">
+              Buy NFT
+            </button>
+            </div> -->
+            {#if i%4 == 0}
+                <hr class="solid">
+            {/if}
+            <div class="flex justify-center">
+              <div
+                class="block max-w-sm rounded-lg bg-white shadow-lg dark:bg-neutral-700">
+                <a href="#!" data-te-ripple-init data-te-ripple-color="light">
+                  <img
+                    class="rounded-t-lg"
+                    src="{item.image}"
+                    width="200" height="40"
+                    alt="" />
+                </a>
+                <div class="p-6">
+                  <h5
+                    class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
+                    {item.name}
+                  </h5>
+                  <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+                    {item.description}
+                  </p>
+                  <button
+                    type="button"
+                    class="inline-block rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                    data-te-ripple-init
+                    data-te-ripple-color="light">
+                    Buy NFT
+                  </button>
+                </div>
+              </div>
+            </div>
             {/each}
+            <!--<div class="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
+            {#each items_list as item, i}
+            <div class="group relative">
+                <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+                  <img src="{item.image}" alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                </div>
+                <div class="mt-4 flex justify-between">
+                  <div>
+                    <h3 class="text-sm text-gray-700">
+                      <a href="#">
+                        <span aria-hidden="true" class="absolute inset-0"></span>
+                        {item.name}
+                      </a>
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-500">{item.description}</p>
+                  </div>
+                  <p class="text-sm font-medium text-gray-900">{ethers.utils.formatEther(item.totalPrice)} ETH</p>
+               </div>
+               </div>
+              {/each}
+          </div>-->
             </div>
             </div>
             </div>
@@ -48,6 +114,7 @@
 
 <script>
         import { ethers } from 'ethers';
+        import NFTCard from './NFTCard.svelte';
         import SaiToken from "../../../../build/contracts/SaiCreditToken.json";
         import Student from "../../../../build/contracts/Student.json";
         import NFT from "../../../../build/contracts/NFT.json";
@@ -146,4 +213,9 @@ const buyMarketItem = async (item) => {
   }
   
 </script>
+<style>
+  hr.solid {
+  border-top: 3px solid #bbb;
+}
+</style>
 

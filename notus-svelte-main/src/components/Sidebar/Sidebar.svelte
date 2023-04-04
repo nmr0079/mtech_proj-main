@@ -162,6 +162,32 @@
         <li class="items-center">
           <a
             use:link
+            href="/admin/bookrec"
+            class="text-xs uppercase py-3 font-bold block {location.href.indexOf('/admin/bookrec') !== -1 ? 'text-red-500 hover:text-red-600':'text-blueGray-700 hover:text-blueGray-500'}"
+          >
+            <i
+              class="fas fa-tv mr-2 text-sm {location.href.indexOf('/admin/bookrec') !== -1 ? 'opacity-75' : 'text-blueGray-300'}"
+            ></i>
+            Trending Books
+          </a>
+        </li>
+
+        <li class="items-center">
+          <a
+            use:link
+            href="/admin/colabbook"
+            class="text-xs uppercase py-3 font-bold block {location.href.indexOf('/admin/colabbook') !== -1 ? 'text-red-500 hover:text-red-600':'text-blueGray-700 hover:text-blueGray-500'}"
+          >
+            <i
+              class="fas fa-tv mr-2 text-sm {location.href.indexOf('/admin/colabbook') !== -1 ? 'opacity-75' : 'text-blueGray-300'}"
+            ></i>
+            Book Recommender
+          </a>
+        </li>
+
+        <!-- <li class="items-center">
+          <a
+            use:link
             href="/admin/calculator"
             class="text-xs uppercase py-3 font-bold block {location.href.indexOf('/admin/calculator') !== -1 ? 'text-red-500 hover:text-red-600':'text-blueGray-700 hover:text-blueGray-500'}"
           >
@@ -170,7 +196,7 @@
             ></i>
             Calculator
           </a>
-        </li>
+        </li> -->
         <!--<li class="items-center">
           <a
             use:link
@@ -193,6 +219,32 @@
               class="fas fa-tools mr-2 text-sm {location.href.indexOf('/admin/settings') !== -1 ? 'opacity-75' : 'text-blueGray-300'}"
             ></i>
             Settings
+          </a>
+        </li>
+
+        <li class="items-center">
+          <a
+            use:link
+            href="/admin/coursemarket"
+            class="text-xs uppercase py-3 font-bold block {location.href.indexOf('/admin/coursemarket') !== -1 ? 'text-red-500 hover:text-red-600':'text-blueGray-700 hover:text-blueGray-500'}"
+          >
+            <i
+              class="fas fa-tools mr-2 text-sm {location.href.indexOf('/admin/coursemarket') !== -1 ? 'opacity-75' : 'text-blueGray-300'}"
+            ></i>
+            Course Marketplace
+          </a>
+        </li>
+
+        <li class="items-center">
+          <a
+            use:link
+            href="/admin/mycourses"
+            class="text-xs uppercase py-3 font-bold block {location.href.indexOf('/admin/mycourses') !== -1 ? 'text-red-500 hover:text-red-600':'text-blueGray-700 hover:text-blueGray-500'}"
+          >
+            <i
+              class="fas fa-tools mr-2 text-sm {location.href.indexOf('/admin/mycourses') !== -1 ? 'opacity-75' : 'text-blueGray-300'}"
+            ></i>
+            My Courses
           </a>
         </li>
 

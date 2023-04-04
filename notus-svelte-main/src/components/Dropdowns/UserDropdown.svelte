@@ -1,7 +1,56 @@
 <script>
   // library for creating dropdown menu appear on click
   import { createPopper } from "@popperjs/core";
+  import { ethers } from "../../../node_modules/ethers";
+  import Student from "../../../../build/contracts/Student.json";
+  import StudentAddress from "../../../contractsData/Student-address.json";
+  let connectedAccount = "";
+  // let username = '';
+  // let firstname = '';
+  // let lastname = '';
+  // let emailaddress = '';
+  // let city = '';
+  // let state = '';
+  // let country = '';
+  // let poscode;
+  // let about = '';
+  // let img_cid;
+  let img;
 
+  let data_cid;
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+   
+
+    const STUDENT_ADDRESS = StudentAddress.address;
+     const StudentContract = new ethers.Contract(
+      STUDENT_ADDRESS,
+      Student.abi,
+      signer
+    );
+
+  async function getDetails(){
+    connectedAccount = await signer.getAddress();
+    data_cid = await StudentContract.getaboutHash({from: connectedAccount})
+    const uri = `https://${data_cid}.ipfs.w3s.link/`;
+            //console.log(uri)
+            // use uri to fetch the nft metadata stored on ipfs 
+    const response = await fetch(uri)
+    const metadata = await response.json()
+    // username = metadata.username;
+    // firstname = metadata.firstname;
+    // lastname = metadata.lastname;
+    // emailaddress = metadata.emailaddress;
+    // city = metadata.city;
+    // state = metadata.state;
+    // country = metadata.country;
+    // poscode = metadata.poscode;
+    // about = metadata.about;
+    img = metadata.img;
+
+  }
+
+  getDetails();
   // core components
 
   const image = "../assets/img/student.jpg";
@@ -38,7 +87,7 @@
         <img
           alt="..."
           class="w-full rounded-full align-middle border-none shadow-lg"
-          src="{image}"
+          src="{img}"
         />
       </span>
     </div>

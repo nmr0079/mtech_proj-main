@@ -99,7 +99,7 @@ await provider.send("eth_requestAccounts", []);
      	 connectedAccount = await signer.getAddress();
         tot_supply = await SaiCreditContract.totalSupply();
         await AccessControlContract.hasInstrRole({from: connectedAccount});
-        navigate("/admin/dashboard", { replace: true });
+        navigate("/instructor/idashboard", { replace: true });
   		} else {
         alert('You need to install metamask');
         }

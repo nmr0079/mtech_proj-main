@@ -6,12 +6,16 @@
   import { ethers } from "../../node_modules/ethers";
   import AccessControl from "../../../build/contracts/AccessControl.json";
   import SaiToken from "../../../build/contracts/SaiCreditToken.json";
+  import Student from "../../../build/contracts/Student.json";
   import MarketplaceAddress from "../../contractsData/Marketplace-address.json";
   import NFTAddress from "../../contractsData/NFT-address.json";
   import SaiCreditTokenAddress from "../../contractsData/SaiCreditToken-address.json";
   import StudentAddress from "../../contractsData/Student-address.json";
   import AccessControlADDRESS from "../../contractsData/AccessControl-address.json";
   //const { ethers } = require("ethers");
+
+  const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdDMTIwZDE0QWJGMzFCNzU5NzJDODkwNTYzRDc1QmRlNTQ2RWYzZUEiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjMxMzUyMTY5OTgsIm5hbWUiOiJFSFJ0b2tlbiJ9.qf_TPOWIqbXJVSsOhv0oywTJCYNsuJ3VVYOX-qA0H6g"
+  const API = "https://api.web3.storage"
 
   const SAICREDIT_ADDRESS = SaiCreditTokenAddress.address;
    const AccessControl_ADDRESS = AccessControlADDRESS.address;
@@ -32,7 +36,12 @@ const signer = provider.getSigner();
       AccessControl.abi,
       signer
     );
-
+    const STUDENT_ADDRESS = StudentAddress.address;
+     const StudentContract = new ethers.Contract(
+      STUDENT_ADDRESS,
+      Student.abi,
+      signer
+    );
 
    let connectedAccount = "";
   let balance = 0;
@@ -40,6 +49,23 @@ const signer = provider.getSigner();
   let num_tokens = 0;
   let tot_supply = 0;
   let tot_tokens_trans = 0;
+  let username = '';
+  let firstname = '';
+  let lastname = '';
+  let emailaddress = '';
+  let city = '';
+  let state = '';
+  let country = '';
+  let poscode;
+  let about = '';
+  let img_cid;
+  let img;
+  let course = '';
+  let subject = '';
+  let institution = '';
+  let studata;
+
+  let data_cid;
   const team2 = "/assets/img/student.jpg";
   const Saitokenpic = "/assets/img/SaiToken.gif";
   async function connectWallet() {
@@ -58,6 +84,31 @@ const signer = provider.getSigner();
         alert('You need to install metamask');
         }
   }
+  async function getDetails(){
+    connectedAccount = await signer.getAddress();
+    data_cid = await StudentContract.getaboutHash({from: connectedAccount})
+    const uri = `https://${data_cid}.ipfs.w3s.link/`;
+            //console.log(uri)
+            // use uri to fetch the nft metadata stored on ipfs 
+    const response = await fetch(uri)
+    const metadata = await response.json()
+    username = metadata.username;
+    firstname = metadata.firstname;
+    lastname = metadata.lastname;
+    emailaddress = metadata.emailaddress;
+    city = metadata.city;
+    state = metadata.state;
+    country = metadata.country;
+    poscode = metadata.poscode;
+    about = metadata.about;
+    img = metadata.img;
+    course = metadata.course;
+    subject = metadata.subject;
+    institution = metadata.institution;
+
+  }
+
+  getDetails();
 //style="background-image: url(https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80);"
   export let location;
 </script>
@@ -106,7 +157,7 @@ const signer = provider.getSigner();
                 <div class="relative">
                   <img
                     alt="..."
-                    src="{team2}"
+                    src="{img}"
                     class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
                   />
                 </div>
@@ -157,17 +208,24 @@ const signer = provider.getSigner();
               <h3
                 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2"
               >
-                Nithin M R
+                {firstname} {lastname}
               </h3>
+              <div class="mb-2 text-blueGray-600 mt-10">
+                Username : {username}
+              </div>
+              <div class="mb-2 text-blueGray-600 mt-10">
+                Email ID: {emailaddress}
+              </div>
               <div
                 class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase"
               >
                 <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                Thiruvananthapuram, Kerala, India
+                {city}, {state}, {country}
+                   PINCODE : {poscode}
               </div>
               <div class="mb-2 text-blueGray-600 mt-10">
                 <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                II Mtech - Computer Science 
+                {course} - {subject} 
               </div>
               <div class="mb-2 text-blueGray-600 mt-10">
                 Metamask public key: {connectedAccount}
@@ -177,15 +235,14 @@ const signer = provider.getSigner();
               </div>
               <div class="mb-2 text-blueGray-600">
                 <i class="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                Sri Sathya Sai Institute of Higher Learning
+                {institution}
               </div>
             </div>
             <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
               <div class="flex flex-wrap justify-center">
                 <div class="w-full lg:w-9/12 px-4">
                   <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                   Student of SSSIHL, studying in II MTech-ComputerScience,a blockchain enthusiast,
-                   cricket lover 
+                   {about}
                   </p>
                   <a
                     href="#pablo"
