@@ -8,6 +8,7 @@ const Marketplace = artifacts.require('Marketplace')
 const Courseblocks = artifacts.require('Courseblocks')
 const Instructor = artifacts.require('Instructor')
 const CourseRecommender = artifacts.require('CourseRecommender')
+const Dappcord = artifacts.require('Dappcord')
 
 module.exports = async function (deployer) {
   await deployer.deploy(Student);
@@ -19,6 +20,7 @@ module.exports = async function (deployer) {
   await deployer.deploy(Instructor);
   await deployer.deploy(Courseblocks);
   await deployer.deploy(CourseRecommender);
+  await deployer.deploy(Dappcord);
 
   const student = await Student.deployed();
   const saicredittoken = await SaiCreditToken.deployed();
@@ -29,6 +31,7 @@ module.exports = async function (deployer) {
   const instructor = await Instructor.deployed();
   const courseblocks = await Courseblocks.deployed();
   const courserecommender = await CourseRecommender.deployed();
+  const dappcord = await Dappcord.deployed();
 
   saveFrontendFiles(nft, "NFT");
   saveFrontendFiles(marketplace, "Marketplace");
@@ -39,6 +42,7 @@ module.exports = async function (deployer) {
   saveFrontendFiles(instructor, "Instructor");
   saveFrontendFiles(courseblocks, "Courseblocks");
   saveFrontendFiles(courserecommender, "CourseRecommender");
+  saveFrontendFiles(dappcord, "Dappcord");
   console.log("NFT contract address " ,nft.address);
   console.log("Marketplace contract address ", marketplace.address);
 };

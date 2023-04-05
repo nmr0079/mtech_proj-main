@@ -6,6 +6,8 @@
     import StudentAddress from "../../../../contractsData/Student-address.json";
     import InstructorAddress from "../../../../contractsData/Instructor-address.json";
     import CourseblocksAddress from "../../../../contractsData/Courseblocks-address.json";
+    import Dappcord from "../../../../../build/contracts/Dappcord.json";
+    import DappcordAddress from "../../../../contractsData/Dappcord-address.json";
     
 
     let pdfDoc;
@@ -44,6 +46,11 @@
         Instructor.abi,
         signer
     );
+    const DappcordContract = new ethers.Contract(
+        DappcordAddress.address,
+        Dappcord.abi,
+        signer
+    );
 
     const CourseblocksContract = new ethers.Contract(
         CourseblocksAddress.address,
@@ -60,6 +67,8 @@
     let img_cid;
     let doc_cid;
     let pub_key = "";
+    let ch_name = "";
+    let cost = 0;
 
     let items_list = [];
     //items_list.push({name: "EHR_paper"})
@@ -217,6 +226,17 @@
     console.log("Added Courses");
     console.log(items_list);
 
+    async function createChannel() {
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        connectedAccount = await signer.getAddress();
+        let message = await DappcordContract.createChannel(
+              ch_name,
+              cost,
+            { from: connectedAccount }
+        );
+        console.log(message);
+
+    }
   function initViewer(canvas) {
     pdfViewer = new pdfjsLib.PDFViewer({
       container: canvas,
@@ -298,6 +318,118 @@
                         <p class="course-rating"><strong>Users</strong> : {course.c_users}</p>
                         <p class="course-price"><strong>Price</strong> : {course.c_price} SaiETH</p>
                       </div>
+                      <button class="bg-red-400 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                        type="button"
+                        on:click={toggleModal}
+                      >
+                     Add Course Channel
+                    </button>
+                    {#if showModal}
+    <div
+        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
+    >
+        <div class="rounded-t mb-0 px-6 py-6">
+            <div class="text-center mb-3">
+                <h6 class="text-blueGray-500 text-sm font-bold">
+                    Add Channel Details
+                </h6>
+            </div>
+            <hr class="mt-6 border-b-1 border-blueGray-300" />
+        </div>
+        <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+            <div class="text-blueGray-400 text-center mb-3 font-bold">
+                <small>Channel Details</small>
+            </div>
+            <!-- <div class="overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex">
+    <div class="relative w-auto my-6 mx-auto max-w-sm">
+      content
+      <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        header
+        <div class="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
+          <h3>
+            <strong>Fill in the Course Details</strong>
+          </h3>
+          <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" on:click={toggleModal}>
+            <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+              ×
+            </span>
+          </button>
+        </div> -->
+            <!--body-->
+            <form>
+                <div class="relative w-full mb-3">
+                    <label
+                        class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        for="grid-name"
+                    >
+                        Channel name
+                    </label>
+                    <input
+                        id="grid-name"
+                        type="text"
+                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="Course Title"
+                        bind:value={ch_name}
+                    />
+                </div>
+              
+                
+                <div class="relative w-full mb-3">
+                    <label
+                        class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        for="grid-price"
+                    >
+                        Cost
+                    </label>
+                    <input
+                        id="grid-name"
+                        type="number"
+                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="Course Price"
+                        min="0"
+                        bind:value={cost}
+                    />
+                </div>
+
+                <!-- <div class="relative w-full mb-3">
+                    <label
+                        class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                        for="grid-price"
+                    >
+                        Question
+                    </label>
+                    <input
+                        id="grid-name"
+                        type="text"
+                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        placeholder="Assignment Question"
+                        bind:value={question}
+                    />
+                </div> -->
+            </form>
+            <!--footer-->
+            <div
+                class="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b"
+            >
+                <button
+                    class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    on:click={toggleModal}
+                >
+                    Close
+                </button>
+                <button
+                    class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    on:click={createChannel}
+                >
+                    Create Channel
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="opacity-25 fixed inset-0 z-40 bg-black" />
+{/if}
                     </div>
                   </div>
                 <!-- <div class="flex justify-center">

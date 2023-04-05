@@ -1,8 +1,11 @@
 <!-- Servers.svelte -->
 <script>
-    import ethereum from "../../../public/assets/img/ethereum.svg";
-    import plus from "../../../public/assets/img/plus.svg";
-    import search from "../../../public/assets/img/search.svg";
+    // import ethereum from "../../../public/assets/img/ethereum.svg";
+    // import plus from "../../../public/assets/img/plus.svg";
+    // import search from "../../../public/assets/img/search.svg";
+    const ethereum = "/assets/img/ethereum.svg";
+    const plus = "/assets/img/plus.svg";
+    const search = "/assets/img/search.svg";
   </script>
   
   <div class="servers">

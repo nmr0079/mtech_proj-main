@@ -341,6 +341,16 @@
             Profile Page
           </a>
         </li>
+        <li class="items-center">
+          <a
+            use:link
+            class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+            href="/dappcord"
+          >
+            <i class="fas fa-user-circle text-blueGray-300 mr-2 text-sm"></i>
+            Dappcord
+          </a>
+        </li>
       </ul>
 
       <!--

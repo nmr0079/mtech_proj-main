@@ -1,16 +1,36 @@
 <!-- Messages.svelte -->
 <script>
-    import { onMount, onCleanup } from "svelte";
+    import { onMount} from "svelte";
     import { io } from "socket.io-client";
+    import {ethers} from "ethers";
     
     // Assets
-    import person from "../assets/person.svg";
-    import send from "../assets/send.svg";
-  
+    // import person from "../assets/person.svg";
+    // import send from "../assets/send.svg";
+    const person = "/assets/img/person.svg";
+    const send =  "/assets/img/send.svg";
+    import Dappcord from "../../../../build/contracts/Dappcord.json";
+    import DappcordAddress from "../../../contractsData/Dappcord-address.json";
+
+  const API_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdDMTIwZDE0QWJGMzFCNzU5NzJDODkwNTYzRDc1QmRlNTQ2RWYzZUEiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjMxMzUyMTY5OTgsIm5hbWUiOiJFSFJ0b2tlbiJ9.qf_TPOWIqbXJVSsOhv0oywTJCYNsuJ3VVYOX-qA0H6g";
+    const API = "https://api.web3.storage";
+    let connectedAccount = "";
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    const DappcordContract = new ethers.Contract(
+        DappcordAddress.address,
+        Dappcord.abi,
+        signer
+    );
+    
+    
     // Socket
     const socket = io("ws://localhost:3030");
     
-    export let account;
+    // export let account;
+    let account;
     export let messages;
     export let currentChannel;
     
@@ -20,10 +40,12 @@
   
     const sendMessage = async (e) => {
       e.preventDefault();
+      connectedAccount = await signer.getAddress();
+      account = connectedAccount;
   
       const messageObj = {
         channel: currentChannel.id.toString(),
-        account: account,
+        account: connectedAccount,
         text: message,
       };
   
@@ -44,9 +66,9 @@
       scrollHandler();
     });
     
-    onCleanup(() => {
-      socket.disconnect();
-    });
+    // onCleanup(() => {
+    //   socket.disconnect();
+    // });
   </script>
   
   <div class="text">
@@ -86,7 +108,11 @@
       {/if}
   
       <button type="submit">
-        <img src={send} alt="Send Message" />
+        <div class="flex flex-wrap justify-center">
+            <div class="w-6/12 sm:w-4/12 px-4">
+              <img src={send} alt="Send Message" class="shadow rounded-full max-w-full h-auto align-middle border-none" />
+            </div>
+          </div>
       </button>
     </form>
   </div>

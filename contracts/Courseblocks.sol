@@ -4,13 +4,12 @@ pragma experimental ABIEncoderV2;
 
 // import "./Student.sol";
 // import "./Instructor.sol";
-import "./SaiCreditToken.sol";
+// import "./SaiCreditToken.sol";
 // import "./AccessControl.sol";
-
-contract Courseblocks is SaiCreditToken{
+contract Courseblocks {
 //     Student public student1;
 //     Instructor public instructor1;
-    SaiCreditToken public saitoken;
+    // SaiCreditToken public saitoken;
 //     AccessControl public access;
 
 //    constructor(address _saitoken,address _access,address _student,address _instructor){
@@ -19,9 +18,9 @@ contract Courseblocks is SaiCreditToken{
 //         student1 = Student(_student);
 //         instructor1 = Instructor(_instructor);
 //     }
-   constructor(address _saitoken){
-        saitoken = SaiCreditToken(_saitoken);
-    }
+//    constructor(address _saitoken){
+//         // saitoken = SaiCreditToken(_saitoken);
+//     }
     struct Course {
         uint256 id;
         string name;
@@ -108,7 +107,7 @@ contract Courseblocks is SaiCreditToken{
         address s_id,
         uint256 c_id,
         uint256 _m
-    ) public returns(string memory){
+    ) public returns(uint256 num){
          uint256 totalCourses = students[s_id].courses_id.length;
         for (uint256 i = 0; i < totalCourses; i++) {
             if (students[s_id].courses_id[i] == c_id) {
@@ -116,14 +115,14 @@ contract Courseblocks is SaiCreditToken{
             }
         }
         if (_m >= 90) {
-            saitoken.transfer(s_id, 20);
-            // return 20;
+            // saitoken.transfer(s_id, 20);
+            return 20;
         } else if (_m >= 80) {
-            saitoken.transfer(s_id, 10);
-            // return 10;
+            // saitoken.transfer(s_id, 10);
+            return 10;
         } else if (_m >= 70) {
-            saitoken.transfer(s_id, 5);
-            // return 5;
+            // saitoken.transfer(s_id, 5);
+            return 5;
         } else if (_m < 40) {
             revert("Sorry, you have failed.");
         }
@@ -143,21 +142,21 @@ contract Courseblocks is SaiCreditToken{
         // } else if (_m < 40) {
         //     revert("Sorry, you have failed.");
         // }
-        return "Assignment reviewed successfully";
+        // return "Assignment reviewed successfully";
     }
 
     function submitAssignment(
         address s_id,
         uint256 c_id,
-        uint256 _time,
-        string memory _hash
+        uint256 _time
+        // string memory _hash
     ) public returns (bool bol) {
          uint256 totalCourses = students[s_id].courses_id.length;
         for (uint256 i = 0; i < totalCourses; i++) {
             if (students[s_id].courses_id[i] == c_id) {
                 if (_time <= students[s_id].courses_deadline[i]) {
                     bol = true;
-                    students[s_id].submission_hash.push(_hash);
+                    // students[s_id].submission_hash.push(_hash);
                     return (true);
                 }
                 //if deadline passed,set marks=0

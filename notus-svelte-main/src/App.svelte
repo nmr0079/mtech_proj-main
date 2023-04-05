@@ -14,6 +14,7 @@
   import Landing from "./views/Landing.svelte";
   import Profile from "./views/Profile.svelte";
   import IProfile from "./views/IProfile.svelte";
+  import Dappcord from "./views/Dappcord.svelte";
 
   export let url = "";
 </script>
@@ -29,5 +30,6 @@
   <Route path="landing" component="{Landing}" />
   <Route path="profile" component="{Profile}" />
   <Route path="iprofile" component="{IProfile}" />
+  <Route path="dappcord" component="{Dappcord}"/>
   <Route path="/" component="{Index}" />
 </Router>
